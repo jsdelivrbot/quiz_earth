@@ -3,7 +3,7 @@ import { NavController } from 'ionic-angular';
 import { LocationTrackerProvider } from '../../providers/location-tracker/location-tracker';
 import { Geolocation } from '@ionic-native/geolocation';
 import L from 'leaflet';
-import { Http } from '@angular/http';
+import {HttpClient} from '@angular/common/http';
 
 
 
@@ -18,10 +18,14 @@ export class HomePage {
   marker : any;
   circle : any;
 
+  public n = [];
+  public e = [];
+  public latlon=[];
 
   constructor(public navCtrl: NavController, 
     public locationTracker: LocationTrackerProvider,
-    public geoLocation : Geolocation) {
+    public geoLocation : Geolocation,
+    public http: HttpClient) {
  
   }
 
@@ -60,6 +64,15 @@ export class HomePage {
       }).addTo(this.map);
   
 
+      this.http.get("http://www2.cgistln.nu.ac.th/budgetview/landmark/all_geojson.php?type=marker&region=&prov_name=&_name=%20&tam_name=&project_group=&type_project=&sub_project_group=&strategic20=&substrategic20=&economic_plan=&economic_target=&economic_measure=&integration_29=&integration_target=&user=24&chain_activities=").subscribe(res => {
+        //this.latlon.push([Number(res[0].coordinates.lat), Number(res[0].coordinates.lon)]);
+        L.marker([Number(res[0].lat), Number(res[0].lon)]).addTo(this.map);
+        console.log(res);
+      })     
+
+       
+     
+
 
       var LeafIcon = L.Icon.extend({
         options: {
@@ -76,16 +89,9 @@ export class HomePage {
       this.circle = L.circle(pos, {radius: 500}).addTo(this.map);        
 
 
-      doGET() {
-        console.log("GET");
-        let url = `${this.apiRoot}/get`;
-        this.http.get(url).subscribe(res => console.log(res.text())); 
-      }
-    
 
 
     
-
 
 
 

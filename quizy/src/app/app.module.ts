@@ -15,6 +15,7 @@ import { LocationTrackerProvider } from '../providers/location-tracker/location-
 import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ServiceProvider } from '../providers/service/service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ServiceProvider } from '../providers/service/service';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
