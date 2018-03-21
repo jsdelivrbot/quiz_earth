@@ -47,9 +47,9 @@ export class ServiceProvider {
   let config = {
     desiredAccuracy: 0,
     stationaryRadius: 1,
-    distanceFilter: 50,
+    distanceFilter: 10,
     debug: true,
-    interval: 2000
+    interval: 1500
   };
  
   this.backgroundGeolocation.configure(config).subscribe((location) => {
@@ -75,7 +75,7 @@ export class ServiceProvider {
   // Foreground Tracking
  
 let options = {
-  frequency: 1500,
+  frequency: 3000,
   enableHighAccuracy: true
 };
  
