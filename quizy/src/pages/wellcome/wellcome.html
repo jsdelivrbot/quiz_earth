@@ -10,20 +10,20 @@
 	<img width="80%" src="http://fun-club.pl/i/site/head_quizy.png" alt="">
 
 
-<form novalidate>
+	<form novalidate [formGroup]="reportForm" >
 	<div class="form">
 		<ion-list>
 		  <ion-item>
-		    <ion-input type="number"  placeholder="กรอกเลขประจำตัวนักเรียน" required></ion-input>
+		    <ion-input type="number" formControlName="username_stu"  placeholder="กรอกเลขประจำตัวนักเรียน" required></ion-input>
 		  </ion-item>
 
 		  <ion-item>
-		    <ion-input type="password"  placeholder="ใส่รหัสผ่าน" required></ion-input>
+		    <ion-input type="password"  formControlName="pass_stu" placeholder="ใส่รหัสผ่าน" required></ion-input>
 		  </ion-item>
 
-		</ion-list> <!-- [disabled]="!reportForm.valid" -->
-		<button ion-button color="secondary" block round (click)="gotoindex()"   >เข้าสู่บทเรียน</button>
-<button ion-button color="primary" block round   >สมัครสมาชิกใหม่</button>
+		</ion-list> <!-- (click)="gotoindex()"  -->
+		<button ion-button color="secondary" block round (click)="submit()"   >เข้าสู่บทเรียน</button>
+<button ion-button color="primary" block round  (click)="signup()"  >สมัครสมาชิกใหม่</button>
 	</div>
 </form>	
 

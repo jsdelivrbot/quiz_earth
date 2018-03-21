@@ -10,6 +10,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { WellcomePage } from '../pages/wellcome/wellcome';
 import { AddquizPage } from '../pages/addquiz/addquiz';
 import { ListquizPage } from '../pages/listquiz/listquiz';
+import { RegisterPage } from '../pages/register/register';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -24,6 +25,9 @@ import { Toast } from '@ionic-native/toast';
 import { DataServiceProvider } from '../providers/data-service/data-service';
 import { HttpModule } from '@angular/http';
 
+import { FileTransfer } from '@ionic-native/file-transfer';
+import { Camera } from '@ionic-native/camera';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -33,7 +37,8 @@ import { HttpModule } from '@angular/http';
     TabsPage,
     WellcomePage,
     AddquizPage,
-    ListquizPage
+    ListquizPage,
+    RegisterPage
   ],
   imports: [
     BrowserModule,
@@ -50,7 +55,8 @@ import { HttpModule } from '@angular/http';
     TabsPage,
     WellcomePage,
     AddquizPage,
-    ListquizPage
+    ListquizPage,
+    RegisterPage
     
   ],
   providers: [
@@ -60,10 +66,12 @@ import { HttpModule } from '@angular/http';
     LocationTrackerProvider,
     BackgroundGeolocation,
     Geolocation,
-    ServiceProvider,
     BarcodeScanner,
     Toast,
-    DataServiceProvider
+    DataServiceProvider,
+    FileTransfer,
+    Camera,
+    ServiceProvider,
   ]
 })
 export class AppModule {}

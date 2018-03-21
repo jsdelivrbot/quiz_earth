@@ -37,16 +37,26 @@
       </form>	
       </ion-card>
 
-      
-      <ion-card *ngIf="productFound">
-        <ion-card-content>
-          <ul>
-            <li>{{selectedProduct.quiz_title}}</li>
-            <li>{{selectedProduct.status_quiz}}</li>
-            <li>{{selectedProduct.token}}</li>
-          </ul>
-        </ion-card-content>
+<form novalidate [formGroup]="reportForm" >     
+      <ion-card *ngIf="productFound"><br>
+          <ion-item  style="white-space: normal;">
+              <h3>{{selectedProduct.quiz_title}}</h3>
+              <p>สถานะ : {{selectedProduct.status_quiz}}</p>
+            </ion-item>
+  <ion-input type="hidden" formControlName="id_quiz_name" value="{{selectedProduct.id_quiz_name}}" ></ion-input>
+		  
+        <ion-row>
+
+          <ion-col>
+            <button  color="gistnu" ion-button icon-left clear small  (click)="includeQuiz()">
+              <ion-icon name="add-circle"></ion-icon>
+              <div>กดเพิ่มแบบทดสอบ</div>
+            </button>
+          </ion-col>
+
+        </ion-row>
       </ion-card>
+</form>	
 
 
 

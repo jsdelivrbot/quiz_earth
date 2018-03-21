@@ -1,18 +1,82 @@
-<!--
-  Generated template for the RegisterPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>register</ion-title>
+    <ion-title>สมัครสมาชิกใหม่</ion-title>
   </ion-navbar>
 
 </ion-header>
+<!-- Themes Register + logo -->
+<ion-content  background-size default-background  id="isnre-font">
+        <ion-row wrap padding>
+            <ion-col col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6>
+                <!--Form-->
+                  <form novalidate [formGroup]="reportForm" >
+                <div class="form">
+                    <!--Form Title-->
+                    <!---Input field username-->
+                    <ion-item no-padding>
+                        <ion-label floating>ชื่อ</ion-label>
+                        <ion-input required type="text" formControlName="name_stu" ></ion-input>
+                    </ion-item>
+                    <!---Input field password-->
+                    <ion-item no-padding>
+                        <ion-label floating>นามสกุล</ion-label>
+                        <ion-input required type="text" formControlName="lname_stu"></ion-input>
+                    </ion-item>
+                    <!---Input field country-->
+                    <ion-item no-padding>
+                        <ion-label floating>เบอร์โทรศัพท์</ion-label>
+                        <ion-input required type="number" formControlName="tel_stu"   ></ion-input>
+                    </ion-item>
+                    <!---Input field city-->
+                    <ion-item no-padding>
+                        <ion-label floating>โรงเรียน</ion-label>
+                        <ion-input required type="text" formControlName="school" ></ion-input>
+                    </ion-item>
+                 
+                    <ion-item  no-padding>
+                      <ion-label floating>ระดับชั้น</ion-label>
+                      <ion-select formControlName="level_stu">
+                        <ion-option value="ประถมศึกษา ปีที่ 1" >ประถมศึกษา ปีที่ 1</ion-option>
+                        <ion-option value="ประถมศึกษา ปีที่ 2" >ประถมศึกษา ปีที่ 2</ion-option>
+                        <ion-option value="ประถมศึกษา ปีที่ 3" >ประถมศึกษา ปีที่ 3</ion-option>
+                        <ion-option value="ประถมศึกษา ปีที่ 4" >ประถมศึกษา ปีที่ 4</ion-option>
+                        <ion-option value="ประถมศึกษา ปีที่ 5" >ประถมศึกษา ปีที่ 5</ion-option>
+                        <ion-option value="ประถมศึกษา ปีที่ 6" >ประถมศึกษา ปีที่ 6</ion-option>
+                        <ion-option value="มัธยมศึกษา ปีที่ 1" >มัธยมศึกษา ปีที่ 1</ion-option>
+                        <ion-option value="มัธยมศึกษา ปีที่ 2" >มัธยมศึกษา ปีที่ 2</ion-option>
+                        <ion-option value="มัธยมศึกษา ปีที่ 3" >มัธยมศึกษา ปีที่ 3</ion-option>
+                        <ion-option value="มัธยมศึกษา ปีที่ 4" >มัธยมศึกษา ปีที่ 4</ion-option>
+                        <ion-option value="มัธยมศึกษา ปีที่ 5" >มัธยมศึกษา ปีที่ 5</ion-option>
+                        <ion-option value="มัธยมศึกษา ปีที่ 6" >มัธยมศึกษา ปีที่ 6</ion-option>
+                      </ion-select>
+                    </ion-item>
+
+                    <!---Input field email-->
+                    <ion-item no-padding>
+                        <ion-label floating>รหัสนักเรียน <small>*ใช้ในการเข้าสู่ระบบ</small></ion-label>
+                        <ion-input required type="number" formControlName="username_stu" ></ion-input>
+                    </ion-item>
+                    <ion-item no-padding>
+                        <ion-label floating>รหัสผ่าน <small>*ใช้ในการเข้าสู่ระบบ</small></ion-label>
+                        <ion-input required type="password" formControlName="pass_stu"  ></ion-input>
+                    </ion-item>
 
 
-<ion-content padding>
+                    <hr>
 
+                       <button ion-button block icon-left (click)="takePicture()"> 
+                          <ion-icon ios="ios-camera" md="md-camera"></ion-icon> ภาพถ่ายผู้เข้าทดสอบ
+                        </button>
+                        <ion-card>
+                          <img [src]="imageURI" *ngIf="imageURI" />
+                        </ion-card>
+                     <hr>
+
+                    <!---Register button-->
+                     <button ion-button block type="submit" [disabled]="!reportForm.valid" (click)="submit()">สร้างบัญชีใหม่</button>
+                </div>
+                </form>
+            </ion-col>
+        </ion-row>
 </ion-content>

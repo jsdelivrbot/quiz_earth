@@ -4,6 +4,8 @@ import { NavController, NavParams } from 'ionic-angular';
 import { AboutPage } from '../about/about';
 import { AddquizPage } from '../addquiz/addquiz';
 import { ListquizPage } from '../listquiz/listquiz';
+import { ServiceProvider } from '../../providers/service/service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'page-home',
@@ -11,8 +13,21 @@ import { ListquizPage } from '../listquiz/listquiz';
 })
 export class HomePage {
  
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  sub : Subscription;
+  items : any;
+
+
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams,
+    public shareService: ServiceProvider) {
+
+     
+      console.log(shareService.usrData)
+
   }
+
+
+
 
   gotoAbout(){
     this.navCtrl.push(AboutPage);
