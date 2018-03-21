@@ -1,0 +1,54 @@
+<!--
+  Generated template for the AddquizPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>เพิ่มแบบทดสอบ</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    
+    
+
+    <ion-card>
+        <form novalidate [formGroup]="tokenForm" >
+        <ion-list>
+              <ion-item>
+                  <ion-label stacked>กรอก Token Key หรือแสกน เพื่อเพิ่มแบบทดสอบ</ion-label>
+                  <ion-input type="text" formControlName="token"></ion-input>
+                </ion-item>
+              
+
+         <hr>
+              <ion-list>
+                      <button ion-button color="gistnu"   (click)="searchquiz()">ค้นหา</button>
+                      <button ion-button color="gistnu"   (click)="scan()"> <ion-icon name="camera"> </ion-icon> แสกน QR Code</button>
+                </ion-list>
+      
+              
+        </ion-list>
+      </form>	
+      </ion-card>
+
+      
+      <ion-card *ngIf="productFound">
+        <ion-card-content>
+          <ul>
+            <li>{{selectedProduct.quiz_title}}</li>
+            <li>{{selectedProduct.status_quiz}}</li>
+            <li>{{selectedProduct.token}}</li>
+          </ul>
+        </ion-card-content>
+      </ion-card>
+
+
+
+
+</ion-content>

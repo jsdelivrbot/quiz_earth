@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { TabsPage } from './../tabs/tabs';
+
 /**
- * Generated class for the WellcomePage page.
+ * Generated class for the ListquizPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -10,22 +10,16 @@ import { TabsPage } from './../tabs/tabs';
 
 @IonicPage()
 @Component({
-  selector: 'page-wellcome',
-  templateUrl: 'wellcome.html',
+  selector: 'page-listquiz',
+  templateUrl: 'listquiz.html',
 })
-export class WellcomePage {
+export class ListquizPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad WellcomePage');
+    console.log('ionViewDidLoad ListquizPage');
   }
-
-  
-  gotoindex(){
-    this.navCtrl.push(TabsPage);
-  }
-
 
 }

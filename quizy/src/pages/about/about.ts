@@ -63,7 +63,7 @@ export class AboutPage {
   
 
       
-      this.http.get("http://localhost:8888/quiz_earth/marker.php").subscribe(res => {
+      this.http.get("http://www2.cgistln.nu.ac.th/quiz_earth/marker.php").subscribe(res => {
 
         for (let i in res) {
         L.marker([Number(res[i].lat), Number(res[i].lon)]).on('click', (e)=>{this.onMapClick(res[i])}).addTo(this.map);
@@ -107,28 +107,28 @@ export class AboutPage {
       buttons: [
         {
           text: res.chioce_1,
-          icon: !this.platform.is('ios') ? 'share' : null,
+          icon: !this.platform.is('ios') ? 'checkmark' : null,
           handler: () => {
             console.log(res.chioce_1);
           }
         },
         {
           text: res.chioce_2,
-          icon: !this.platform.is('ios') ? 'share' : null,
+          icon: !this.platform.is('ios') ? 'checkmark' : null,
           handler: () => {
             console.log(res.chioce_2);
           }
         },
         {
           text: res.chioce_3,
-          icon: !this.platform.is('ios') ? 'arrow-dropright-circle' : null,
+          icon: !this.platform.is('ios') ? 'checkmark' : null,
           handler: () => {
             console.log(res.chioce_3);
           }
         },
         {
           text: res.chioce_4,
-          icon: !this.platform.is('ios') ? 'heart-outline' : null,
+          icon: !this.platform.is('ios') ? 'checkmark' : null,
           handler: () => {
             console.log(res.chioce_4);
           }
