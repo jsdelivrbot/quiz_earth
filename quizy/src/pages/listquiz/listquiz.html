@@ -7,12 +7,30 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>listquiz</ion-title>
+    <ion-title>รายชื่อแบบทดสอบที่ลงทะเบียน</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  
+      <ion-list  *ngFor="let c of res">
+          <ion-item-sliding (click)="viewmap(c)" >
+            <ion-item>
+                <ion-icon color="gistnu" name="bookmark" item-start></ion-icon>
+              <h2> {{c.quiz_title}}</h2>
+              <p>โดย : นางสาว กดหกดหกด</p>
+            </ion-item>
+
+            <ion-item-options side="right">
+              <button ion-button color="gistnu">
+                <ion-icon name="close-circle"></ion-icon>
+                Delete
+              </button>
+            </ion-item-options>
+
+          </ion-item-sliding><hr>
+        </ion-list>
 
 </ion-content>

@@ -11,6 +11,7 @@ import { WellcomePage } from '../pages/wellcome/wellcome';
 import { AddquizPage } from '../pages/addquiz/addquiz';
 import { ListquizPage } from '../pages/listquiz/listquiz';
 import { RegisterPage } from '../pages/register/register';
+import { MapquizPage } from '../pages/mapquiz/mapquiz';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -38,12 +39,15 @@ import { Camera } from '@ionic-native/camera';
     WellcomePage,
     AddquizPage,
     ListquizPage,
-    RegisterPage
+    RegisterPage,
+    MapquizPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      tabsHideOnSubPages: true,
+    }),
     HttpModule
   ],
   bootstrap: [IonicApp],
@@ -56,7 +60,8 @@ import { Camera } from '@ionic-native/camera';
     WellcomePage,
     AddquizPage,
     ListquizPage,
-    RegisterPage
+    RegisterPage,
+    MapquizPage
     
   ],
   providers: [

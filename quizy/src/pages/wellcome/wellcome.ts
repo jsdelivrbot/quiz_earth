@@ -30,6 +30,7 @@ export class WellcomePage {
     public shareService: ServiceProvider,
     public events: Events
   ){
+    console.log(shareService.center);
     this.username_stu = fb.control('', Validators.required);
     this.pass_stu = fb.control('', Validators.required);
     this.reportForm = fb.group({
@@ -53,7 +54,7 @@ export class WellcomePage {
     });
 
     loader.present();    
-    this.http.post('http://www2.cgistln.nu.ac.th/quiz_earth/checklogin.php', data)
+    this.http.post('http://www2.cgistln.nu.ac.th/quiz_earth/service/checklogin.php', data)
     .subscribe(res => {
        this.res = res;
        console.log(res);
@@ -88,6 +89,10 @@ export class WellcomePage {
   }
 
   
+ 
+  ionViewDidLoad() {
+    this.shareService.getLatLon();
+  }  
 
 
 

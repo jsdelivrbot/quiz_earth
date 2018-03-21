@@ -16,13 +16,13 @@ export class HomePage {
   sub : Subscription;
   items : any;
 
-
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     public shareService: ServiceProvider) {
 
-     
-      console.log(shareService.usrData)
+      console.log(shareService.lat);
+      console.log(shareService.lng);
+      console.log(shareService.center);
 
   }
 

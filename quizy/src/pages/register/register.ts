@@ -100,7 +100,7 @@ export class RegisterPage {
     });
 
     loader.present();    
-    this.http.post('http://www2.cgistln.nu.ac.th/quiz_earth/insert.php', data)
+    this.http.post('http://www2.cgistln.nu.ac.th/quiz_earth/service/insert.php', data)
     .subscribe(res => {
       this.res = res;
     	
@@ -151,7 +151,7 @@ export class RegisterPage {
 
 
   
-    fileTransfer.upload(this.imageURI, 'http://www2.cgistln.nu.ac.th/quiz_earth/img_upload.php', options)
+    fileTransfer.upload(this.imageURI, 'http://www2.cgistln.nu.ac.th/quiz_earth/service/img_upload.php', options)
     .then(res => {   
       loader.dismiss(); 
       this.gotoHome();     

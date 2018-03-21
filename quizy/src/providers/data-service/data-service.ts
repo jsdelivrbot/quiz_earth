@@ -15,7 +15,7 @@ export class DataServiceProvider {
   }
 
   getProducts(){
-    return this.http.get('http://www2.cgistln.nu.ac.th/quiz_earth/qr_gen.php')
+    return this.http.get('http://www2.cgistln.nu.ac.th/quiz_earth/service/qr_gen.php')
       .map((response:Response)=>response.json());
   }
 

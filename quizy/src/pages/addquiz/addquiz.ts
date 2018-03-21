@@ -9,7 +9,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import { ServiceProvider } from '../../providers/service/service';
-import { AboutPage } from '../about/about';
+import { MapquizPage } from '../mapquiz/mapquiz';
 
 /**
  * Generated class for the AddquizPage page.
@@ -116,11 +116,7 @@ export class AddquizPage {
   }
 
 
-  gotoMap(){  
-    // Sharing data using service
-    //this.shareService.setUserData(this.res);
-    this.navCtrl.push(AboutPage);
-  }
+
 
 
 
@@ -135,7 +131,7 @@ export class AddquizPage {
 
     console.log(this.shareService.usrData.id_stu);
 
-    this.http.post('http://www2.cgistln.nu.ac.th/quiz_earth/include_quiz.php', data)
+    this.http.post('http://www2.cgistln.nu.ac.th/quiz_earth/service/include_quiz.php', data)
     .subscribe(res => {
        this.res = res;
        console.log(res);
@@ -164,7 +160,16 @@ export class AddquizPage {
 
 
   }
+  
 
+
+  gotoMap(){  
+    let id_quiz_name = this.reportForm.controls['id_quiz_name'].value;
+
+    this.navCtrl.push(MapquizPage,{
+      id_quiz_name : id_quiz_name
+    });
+  }
   
 
 
