@@ -32,7 +32,7 @@ export class AboutPage {
       console.log(shareService.lng);
   }
 
- 
+
   ionViewDidLoad() {
     this.shareService.getLatLon();
     this.loadMap();
@@ -83,11 +83,27 @@ export class AboutPage {
       });
       
 console.log('data : ',data)
+
+
+var LeafIcon = L.Icon.extend({
+  options: {
+    iconSize:     [30, 40], // size of the icon
+    iconAnchor:   [10, 30]
+  }
+});
+
+var greenIcon = new LeafIcon({iconUrl: 'http://icon-park.com/imagefiles/location_map_pin_orange5.png'})
+var successicon = new LeafIcon({iconUrl: 'http://icon-park.com/imagefiles/location_map_pin_light_green5.png'})
+var infoicon = new LeafIcon({iconUrl: 'http://icon-park.com/imagefiles/location_map_pin_blue5.png'})
+var select3 = new LeafIcon({iconUrl: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/pin-icon.png'})
+var select4 = new LeafIcon({iconUrl: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/pin-icon.png'})
+;
+
       this.http.post("http://www2.cgistln.nu.ac.th/quiz_earth/service/marker.php?type=2",data)
       .subscribe(res => {
 
          for (let i in res) {
-         L.marker([Number(res[i].lat), Number(res[i].lon)]).addTo(this.map);
+         L.marker([Number(res[i].lat), Number(res[i].lon)],{icon : infoicon}).addTo(this.map);
          console.log(res);
            }
 
@@ -98,27 +114,14 @@ console.log('data : ',data)
       .subscribe(res => {
 
          for (let i in res) {
-         L.marker([Number(res[i].lat), Number(res[i].lon)]).on('click', (e)=>{this.onMapClick(res[i])}).addTo(this.map);
+         L.marker([Number(res[i].lat), Number(res[i].lon)],{icon : successicon}).on('click', (e)=>{this.onMapClick(res[i])}).addTo(this.map);
          console.log(res);
            }
 
       })    
        
 
-
-
-       
      
-
-
-      var LeafIcon = L.Icon.extend({
-        options: {
-          iconSize:     [30, 40], // size of the icon
-          iconAnchor:   [10, 30]
-        }
-      });
-    
-      var greenIcon = new LeafIcon({iconUrl: 'http://icon-park.com/imagefiles/location_map_pin_orange5.png'});
 
       this.marker = L.marker(pos, {icon: greenIcon}).addTo(this.map);
       this.circle = L.circle(pos, {radius: 200}).addTo(this.map);   
@@ -142,6 +145,11 @@ console.log('data : ',data)
   } 
 
 
+  Refresh(refresher) {
+    this.map.removeLayer(this.marker)
+    this.map.removeLayer(this.circle)
+    
+  }
 
   
   onMapClick(res) {

@@ -43,7 +43,9 @@ export class ListquizPage {
 
   viewmap(c):void {
     this.navCtrl.push(MapquizPage,{
-      id_quiz_group : c.id_quiz_group
+      id_quiz_group : c.id_quiz_group,
+      quiz_title : c.quiz_title
+
     });
     }
 

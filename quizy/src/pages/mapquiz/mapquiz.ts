@@ -24,12 +24,13 @@ export class MapquizPage {
   center : any;
   marker : any;
   circle : any;
-  qq : any;
+
 
   public i = [];
 
 
   id_quiz_group : any;
+  quiz_title : any;
   
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
@@ -40,7 +41,8 @@ export class MapquizPage {
     public actionsheetCtrl: ActionSheetController,
     public shareService: ServiceProvider
   ) {
-      this.id_quiz_group = this.navParams.get('id_quiz_group'); 
+    this.id_quiz_group = this.navParams.get('id_quiz_group'); 
+    this.quiz_title = this.navParams.get('quiz_title'); 
 
       console.log(this.id_quiz_group);
   }
@@ -49,6 +51,8 @@ export class MapquizPage {
     this.shareService.getLatLon();
     this.loadMap();
   }  
+  
+
   
   loadMap() {
 
@@ -101,8 +105,8 @@ export class MapquizPage {
       });
     
       var greenIcon = new LeafIcon({iconUrl: 'http://icon-park.com/imagefiles/location_map_pin_orange5.png'})
-      var select1 = new LeafIcon({iconUrl: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/pin-icon.png'})
-      var select2 = new LeafIcon({iconUrl: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/pin-icon.png'})
+      var successicon = new LeafIcon({iconUrl: 'http://icon-park.com/imagefiles/location_map_pin_light_green5.png'})
+      var infoicon = new LeafIcon({iconUrl: 'http://icon-park.com/imagefiles/location_map_pin_blue5.png'})
       var select3 = new LeafIcon({iconUrl: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/pin-icon.png'})
       var select4 = new LeafIcon({iconUrl: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/pin-icon.png'})
       ;
@@ -112,7 +116,7 @@ export class MapquizPage {
        .subscribe(res => {
  
           for (let i in res) {
-            var marker =   L.marker([Number(res[i].lat), Number(res[i].lon)]).addTo(this.map);
+            var marker =   L.marker([Number(res[i].lat), Number(res[i].lon)],{icon : infoicon}).addTo(this.map);
           console.log(res);
             }
  
@@ -122,9 +126,8 @@ export class MapquizPage {
 
        this.http.post("http://www2.cgistln.nu.ac.th/quiz_earth/service/marker_quiz.php?type=1",data)
        .subscribe(res => {
- 
           for (let i in res) {
-            var marker = L.marker([Number(res[i].lat), Number(res[i].lon)],{icon : greenIcon}).on('click', (e)=>{this.onMapClick(res[i])}).addTo(this.map);
+            var marker = L.marker([Number(res[i].lat), Number(res[i].lon)],{icon : successicon}).on('click', (e)=>{this.onMapClick(res[i])}).addTo(this.map);
           console.log(res);
             }
  
@@ -160,14 +163,14 @@ export class MapquizPage {
    } 
 
 
-   doRefresh(refresher) {
-    console.log('Begin async operation', refresher);
 
-    setTimeout(() => {
-      console.log('Async operation has ended');
-      refresher.complete();
-    }, 2000);
+
+  Refresh(refresher) {
+    this.map.removeLayer(this.marker)
+    this.map.removeLayer(this.circle)
+    
   }
+
 
 
 
