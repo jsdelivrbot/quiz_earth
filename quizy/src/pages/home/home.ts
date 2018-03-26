@@ -4,6 +4,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { AboutPage } from '../about/about';
 import { AddquizPage } from '../addquiz/addquiz';
 import { ListquizPage } from '../listquiz/listquiz';
+import { PointPage } from '../point/point';
 import { ServiceProvider } from '../../providers/service/service';
 import {Subscription} from 'rxjs/Subscription';
 
@@ -28,6 +29,10 @@ export class HomePage {
 
 
 
+  ionViewDidLoad() {
+    this.shareService.getLatLon();
+  }  
+  
 
   gotoAbout(){
     this.navCtrl.push(AboutPage);
@@ -39,6 +44,10 @@ export class HomePage {
 
   gotoListquiz(){
     this.navCtrl.push(ListquizPage);
+  }
+
+  gotoPoint(){
+    this.navCtrl.push(PointPage);
   }
 
 }

@@ -8,15 +8,11 @@
   </ion-navbar>
 </ion-header>
 
+
 <ion-content>
     
-
-    <h5> Latitude: {{shareService.lat}}</h5>
-    <h5> Longitude: {{shareService.lng}}</h5>
-
-
     <ion-fab right top>
-        <button ion-fab  (click)="loadMap()">
+        <button ion-fab  (click)="ionViewDidLoad()">
           <ion-icon name="pin"></ion-icon>
         </button>
       </ion-fab>

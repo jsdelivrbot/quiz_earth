@@ -47,9 +47,13 @@ export class AboutPage {
 
 
    //this.geoLocation.getCurrentPosition().then((res) => {
+
+
       this.center = [lat , lng];      
       let pos = [lat  , lng];
       console.log(this.center);
+
+
       // this.center = [16.746003, 100.193594];      
       // let pos = [16.746003, 100.193594];
       // console.log(this.center);
@@ -73,20 +77,35 @@ export class AboutPage {
       let id_stu = this.shareService.usrData.id_stu;
 
       let data = JSON.stringify({
-        'id_stu':id_stu
+        'id_stu':id_stu,
+        'lat' : lat,
+        'lon' : lng
       });
-      console.log(data);
-      this.http.post("http://www2.cgistln.nu.ac.th/quiz_earth/service/marker.php",data)
+      
+console.log('data : ',data)
+      this.http.post("http://www2.cgistln.nu.ac.th/quiz_earth/service/marker.php?type=2",data)
       .subscribe(res => {
 
-        for (let i in res) {
-        L.marker([Number(res[i].lat), Number(res[i].lon)]).on('click', (e)=>{this.onMapClick(res[i])}).addTo(this.map);
-        console.log(res);
-         }
+         for (let i in res) {
+         L.marker([Number(res[i].lat), Number(res[i].lon)]).addTo(this.map);
+         console.log(res);
+           }
+
+      })    
+       
+
+      this.http.post("http://www2.cgistln.nu.ac.th/quiz_earth/service/marker.php?type=1",data)
+      .subscribe(res => {
+
+         for (let i in res) {
+         L.marker([Number(res[i].lat), Number(res[i].lon)]).on('click', (e)=>{this.onMapClick(res[i])}).addTo(this.map);
+         console.log(res);
+           }
+
+      })    
+       
 
 
-
-      }) 
 
        
      
@@ -99,12 +118,22 @@ export class AboutPage {
         }
       });
     
-      var greenIcon = new LeafIcon({iconUrl: 'http://icon-park.com/imagefiles/location_map_pin_orange3.png'});
- 
-  
+      var greenIcon = new LeafIcon({iconUrl: 'http://icon-park.com/imagefiles/location_map_pin_orange5.png'});
 
       this.marker = L.marker(pos, {icon: greenIcon}).addTo(this.map);
-      this.circle = L.circle(pos, {radius: 200}).addTo(this.map);        
+      this.circle = L.circle(pos, {radius: 200}).addTo(this.map);   
+
+
+      
+      setInterval(() => {
+
+        this.map.removeLayer(this.marker)
+        this.map.removeLayer(this.circle)
+
+       this.marker = L.marker(pos, {icon: greenIcon}).addTo(this.map);
+       this.circle = L.circle(pos, {radius: 200}).addTo(this.map);   
+
+     }, 1500);
 
 
 
@@ -114,6 +143,7 @@ export class AboutPage {
 
 
 
+  
   onMapClick(res) {
     console.log(res);
     let actionSheet = this.actionsheetCtrl.create({
@@ -122,45 +152,88 @@ export class AboutPage {
       buttons: [
         {
           text: res.chioce_1,
-          icon: !this.platform.is('ios') ? 'checkmark' : null,
+          icon: !this.platform.is('ios') ? 'paper-plane' : null,
           handler: () => {
             console.log(res.chioce_1);
+
+            let id_stu = this.shareService.usrData.id_stu
+            let id_quiz = res.id_quiz
+
+              let data = JSON.stringify({
+                'id_stu':id_stu,
+                'id_quiz' : id_quiz,
+                'select' : 'select1'
+              });
+              console.log(data);
+
+                this.http.post("http://www2.cgistln.nu.ac.th/quiz_earth/service/insert_check.php",data)
+                .subscribe(res => { console.log(res);})    
           }
         },
         {
           text: res.chioce_2,
-          icon: !this.platform.is('ios') ? 'checkmark' : null,
+          icon: !this.platform.is('ios') ? 'paper-plane' : null,
           handler: () => {
             console.log(res.chioce_2);
+
+            let id_stu = this.shareService.usrData.id_stu
+            let id_quiz = res.id_quiz
+
+              let data = JSON.stringify({
+                'id_stu':id_stu,
+                'id_quiz' : id_quiz,
+                'select' : 'select2'
+              });
+              console.log(data);
+
+                this.http.post("http://www2.cgistln.nu.ac.th/quiz_earth/service/insert_check.php",data)
+                .subscribe(res => { console.log(res);})    
           }
         },
         {
           text: res.chioce_3,
-          icon: !this.platform.is('ios') ? 'checkmark' : null,
+          icon: !this.platform.is('ios') ? 'paper-plane' : null,
           handler: () => {
             console.log(res.chioce_3);
+
+            let id_stu = this.shareService.usrData.id_stu
+            let id_quiz = res.id_quiz
+
+              let data = JSON.stringify({
+                'id_stu':id_stu,
+                'id_quiz' : id_quiz,
+                'select' : 'select3'
+              });
+              console.log(data);
+
+                this.http.post("http://www2.cgistln.nu.ac.th/quiz_earth/service/insert_check.php",data)
+                .subscribe(res => {console.log(res); })    
           }
         },
         {
           text: res.chioce_4,
-          icon: !this.platform.is('ios') ? 'checkmark' : null,
+          icon: !this.platform.is('ios') ? 'paper-plane' : null,
           handler: () => {
             console.log(res.chioce_4);
-          }
-        },
-        {
-          text: 'cancel',
-          role: 'cancel', // will always sort to be on the bottom
-          icon: !this.platform.is('ios') ? 'close' : null,
-          handler: () => {
-            console.log('Cancel clicked');
+
+            let id_stu = this.shareService.usrData.id_stu
+            let id_quiz = res.id_quiz
+
+              let data = JSON.stringify({
+                'id_stu':id_stu,
+                'id_quiz' : id_quiz,
+                'select' : 'select4'
+              });
+              console.log(data);
+
+                this.http.post("http://www2.cgistln.nu.ac.th/quiz_earth/service/insert_check.php",data)
+                .subscribe(res => { console.log(res);})    
           }
         }
       ]
     });
     actionSheet.present();
   }
-
 
  
 }

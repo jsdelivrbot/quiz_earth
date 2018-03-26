@@ -12,6 +12,7 @@ import { AddquizPage } from '../pages/addquiz/addquiz';
 import { ListquizPage } from '../pages/listquiz/listquiz';
 import { RegisterPage } from '../pages/register/register';
 import { MapquizPage } from '../pages/mapquiz/mapquiz';
+import { PointPage } from '../pages/point/point';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -40,7 +41,8 @@ import { Camera } from '@ionic-native/camera';
     AddquizPage,
     ListquizPage,
     RegisterPage,
-    MapquizPage
+    MapquizPage,
+    PointPage
   ],
   imports: [
     BrowserModule,
@@ -61,7 +63,8 @@ import { Camera } from '@ionic-native/camera';
     AddquizPage,
     ListquizPage,
     RegisterPage,
-    MapquizPage
+    MapquizPage,
+    PointPage
     
   ],
   providers: [

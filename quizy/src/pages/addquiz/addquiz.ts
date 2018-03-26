@@ -36,7 +36,7 @@ export class AddquizPage {
 
 
   public reportForm : FormGroup;
-  public id_quiz_name : FormControl;
+  public id_quiz_group : FormControl;
 
 
   constructor( public fb : FormBuilder,  
@@ -48,9 +48,9 @@ export class AddquizPage {
     public dataService: DataServiceProvider,
     public shareService: ServiceProvider) {
 
-      this.id_quiz_name = fb.control('', Validators.required);
+      this.id_quiz_group = fb.control('', Validators.required);
       this.reportForm = fb.group({
-        'id_quiz_name': this.id_quiz_name, 
+        'id_quiz_group': this.id_quiz_group, 
       })
 
 
@@ -121,11 +121,11 @@ export class AddquizPage {
 
 
   includeQuiz(){
-    let id_quiz_name = this.reportForm.controls['id_quiz_name'].value;
+    let id_quiz_group = this.reportForm.controls['id_quiz_group'].value;
     let id_stu = this.shareService.usrData.id_stu;
    
     let data = JSON.stringify({
-      'id_quiz_name':id_quiz_name,
+      'id_quiz_group':id_quiz_group,
       'id_stu':id_stu
     });
 
@@ -164,10 +164,10 @@ export class AddquizPage {
 
 
   gotoMap(){  
-    let id_quiz_name = this.reportForm.controls['id_quiz_name'].value;
+    let id_quiz_group = this.reportForm.controls['id_quiz_group'].value;
 
     this.navCtrl.push(MapquizPage,{
-      id_quiz_name : id_quiz_name
+      id_quiz_group : id_quiz_group
     });
   }
   

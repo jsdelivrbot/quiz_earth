@@ -24,11 +24,12 @@ export class MapquizPage {
   center : any;
   marker : any;
   circle : any;
+  qq : any;
 
   public i = [];
 
 
-  id_quiz_name : any;
+  id_quiz_group : any;
   
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
@@ -39,9 +40,9 @@ export class MapquizPage {
     public actionsheetCtrl: ActionSheetController,
     public shareService: ServiceProvider
   ) {
-      this.id_quiz_name = this.navParams.get('id_quiz_name'); 
+      this.id_quiz_group = this.navParams.get('id_quiz_group'); 
 
-      console.log(this.id_quiz_name);
+      console.log(this.id_quiz_group);
   }
 
   ionViewDidLoad() {
@@ -50,15 +51,22 @@ export class MapquizPage {
   }  
   
   loadMap() {
-    let lat = this.shareService.lat;
-    let lng = this.shareService.lng;
-   // this.geoLocation.getCurrentPosition().then((res) => {
-    this.center = [lat , lng];      
-    let pos = [lat  , lng];
-    console.log(this.center);
-      //  this.center = [16.746003, 100.193594];      
-      //  let pos = [16.746003, 100.193594];
-      //  console.log(this.center);
+
+
+
+
+ // this.geoLocation.getCurrentPosition().then((res) => {
+    // let lat = this.shareService.lat;
+    // let lng = this.shareService.lng;
+    // this.center = [lat , lng];      
+    // let pos = [lat  , lng];
+    // console.log(this.center);
+
+      let lat = 16.746003;
+      let lng = 100.193594;
+       this.center = [16.746003, 100.193594];      
+       let pos = [16.746003, 100.193594];
+       console.log(this.center);
  
  
  
@@ -76,49 +84,95 @@ export class MapquizPage {
        }).addTo(this.map);
    
  
-       let id_quiz_name = this.id_quiz_name = this.navParams.get('id_quiz_name'); 
+       let id_quiz_group = this.id_quiz_group = this.navParams.get('id_quiz_group'); 
 
        let data = JSON.stringify({
-         'id_quiz_name':id_quiz_name
+         'id_quiz_group':id_quiz_group,
+         'lat' : lat,
+         'lon' : lng
        });
        console.log(data);
- 
+
+       var LeafIcon = L.Icon.extend({
+        options: {
+          iconSize:     [30, 40], // size of the icon
+          iconAnchor:   [10, 30]
+        }
+      });
+    
+      var greenIcon = new LeafIcon({iconUrl: 'http://icon-park.com/imagefiles/location_map_pin_orange5.png'})
+      var select1 = new LeafIcon({iconUrl: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/pin-icon.png'})
+      var select2 = new LeafIcon({iconUrl: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/pin-icon.png'})
+      var select3 = new LeafIcon({iconUrl: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/pin-icon.png'})
+      var select4 = new LeafIcon({iconUrl: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/pin-icon.png'})
+      ;
 
 
-       this.http.post("http://www2.cgistln.nu.ac.th/quiz_earth/service/marker_quiz.php",data)
+       this.http.post("http://www2.cgistln.nu.ac.th/quiz_earth/service/marker_quiz.php?type=2",data)
        .subscribe(res => {
  
-         for (let i in res) {
-         L.marker([Number(res[i].lat), Number(res[i].lon)]).on('click', (e)=>{this.onMapClick(res[i])}).addTo(this.map);
-         console.log(res);
-          }
- 
- 
+          for (let i in res) {
+            var marker =   L.marker([Number(res[i].lat), Number(res[i].lon)]).addTo(this.map);
+          console.log(res);
+            }
  
        })    
         
+ 
+
+       this.http.post("http://www2.cgistln.nu.ac.th/quiz_earth/service/marker_quiz.php?type=1",data)
+       .subscribe(res => {
+ 
+          for (let i in res) {
+            var marker = L.marker([Number(res[i].lat), Number(res[i].lon)],{icon : greenIcon}).on('click', (e)=>{this.onMapClick(res[i])}).addTo(this.map);
+          console.log(res);
+            }
+ 
+       })    
+        
+
+  
       
  
- 
-       var LeafIcon = L.Icon.extend({
-         options: {
-           iconSize:     [30, 40], // size of the icon
-           iconAnchor:   [10, 30]
-         }
-       });
-     
-       var greenIcon = new LeafIcon({iconUrl: 'http://icon-park.com/imagefiles/location_map_pin_orange3.png'});
-  
-   
- 
+
+
+
+      this.marker = L.marker(pos, {icon: greenIcon}).addTo(this.map);
+      this.circle = L.circle(pos, {radius: 200}).addTo(this.map);   
+      
+
+      
+      setInterval(() => {
+
+        this.map.removeLayer(this.marker)
+        this.map.removeLayer(this.circle)
+        
        this.marker = L.marker(pos, {icon: greenIcon}).addTo(this.map);
-       this.circle = L.circle(pos, {radius: 200}).addTo(this.map);        
- 
- 
+       this.circle = L.circle(pos, {radius: 200}).addTo(this.map);   
+
+     }, 1500);
+
+
+
  
    // })
    
    } 
+
+
+   doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 2000);
+  }
+
+
+
+
+
 
 
   onMapClick(res) {
@@ -129,38 +183,86 @@ export class MapquizPage {
       buttons: [
         {
           text: res.chioce_1,
-          icon: !this.platform.is('ios') ? 'checkmark' : null,
+          icon: !this.platform.is('ios') ? 'return-right' : null,
           handler: () => {
             console.log(res.chioce_1);
+            
+           
+
+            let id_stu = this.shareService.usrData.id_stu
+            let id_quiz = res.id_quiz
+
+              let data = JSON.stringify({
+                'id_stu':id_stu,
+                'id_quiz' : id_quiz,
+                'select' : 'select1'
+              });
+              console.log(data);
+
+                this.http.post("http://www2.cgistln.nu.ac.th/quiz_earth/service/insert_check.php",data)
+                .subscribe(res => { console.log(res);})    
           }
         },
         {
           text: res.chioce_2,
-          icon: !this.platform.is('ios') ? 'checkmark' : null,
+          icon: !this.platform.is('ios') ? 'return-right' : null,
           handler: () => {
             console.log(res.chioce_2);
+
+            let id_stu = this.shareService.usrData.id_stu
+            let id_quiz = res.id_quiz
+
+              let data = JSON.stringify({
+                'id_stu':id_stu,
+                'id_quiz' : id_quiz,
+                'select' : 'select2'
+              });
+              console.log(data);
+
+                this.http.post("http://www2.cgistln.nu.ac.th/quiz_earth/service/insert_check.php",data)
+                .subscribe(res => { console.log(res);})    
           }
         },
         {
           text: res.chioce_3,
-          icon: !this.platform.is('ios') ? 'checkmark' : null,
+          icon: !this.platform.is('ios') ? 'return-right' : null,
           handler: () => {
             console.log(res.chioce_3);
+            this.marker.refresh();
+
+            let id_stu = this.shareService.usrData.id_stu
+            let id_quiz = res.id_quiz
+
+              let data = JSON.stringify({
+                'id_stu':id_stu,
+                'id_quiz' : id_quiz,
+                'select' : 'select3'
+              });
+              console.log(data);
+
+                this.http.post("http://www2.cgistln.nu.ac.th/quiz_earth/service/insert_check.php",data)
+                .subscribe(res => {console.log(res); })    
           }
         },
         {
           text: res.chioce_4,
-          icon: !this.platform.is('ios') ? 'checkmark' : null,
+          icon: !this.platform.is('ios') ? 'return-right' : null,
           handler: () => {
             console.log(res.chioce_4);
-          }
-        },
-        {
-          text: 'cancel',
-          role: 'cancel', // will always sort to be on the bottom
-          icon: !this.platform.is('ios') ? 'close' : null,
-          handler: () => {
-            console.log('Cancel clicked');
+            this.marker.refresh();
+
+            let id_stu = this.shareService.usrData.id_stu
+            let id_quiz = res.id_quiz
+
+              let data = JSON.stringify({
+                'id_stu':id_stu,
+                'id_quiz' : id_quiz,
+                'select' : 'select4'
+              });
+              console.log(data);
+
+                this.http.post("http://www2.cgistln.nu.ac.th/quiz_earth/service/insert_check.php",data)
+                .subscribe(res => { console.log(res);})    
           }
         }
       ]
